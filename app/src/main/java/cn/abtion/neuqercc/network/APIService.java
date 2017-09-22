@@ -13,6 +13,9 @@ import retrofit2.http.POST;
  */
 
 public interface APIService {
+    /**
+     * 登录
+     */
     @POST("user/login")
     Call<APIResponse> login(@Body LoginRequest loginRequest);
 }

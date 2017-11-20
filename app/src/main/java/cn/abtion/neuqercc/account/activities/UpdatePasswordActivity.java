@@ -1,21 +1,22 @@
 package cn.abtion.neuqercc.account.activities;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.design.widget.TextInputEditText;
-import android.transition.Explode;
-import android.transition.Slide;
+import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.abtion.neuqercc.R;
-import cn.abtion.neuqercc.account.models.NewPasswordRequest;
+import cn.abtion.neuqercc.account.models.CaptchaCountDownTimer;
+import cn.abtion.neuqercc.account.models.UpdatePasswordRequest;
+import cn.abtion.neuqercc.account.models.SmsRequest;
 import cn.abtion.neuqercc.base.activities.NoBarActivity;
 import cn.abtion.neuqercc.common.Config;
 import cn.abtion.neuqercc.main.MainActivity;
 import cn.abtion.neuqercc.network.APIResponse;
 import cn.abtion.neuqercc.network.DataCallback;
 import cn.abtion.neuqercc.network.RestClient;
+import cn.abtion.neuqercc.utils.RegexUtil;
 import cn.abtion.neuqercc.utils.ToastUtil;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -33,31 +34,36 @@ public class UpdatePasswordActivity extends NoBarActivity {
     TextInputEditText editPassword;
     @BindView(R.id.edit_repeat_password)
     TextInputEditText editRepeatPassword;
+    @BindView(R.id.edit_phone)
+    TextInputEditText editPhone;
+    @BindView(R.id.edit_captcha)
+    TextInputEditText editCaptcha;
+    @BindView(R.id.btn_get_verify_code)
+    Button btnGetVerifyCode;
 
-    private NewPasswordRequest newPasswordRequest;
+    private UpdatePasswordRequest updatePasswordRequest;
+
+    private SmsRequest smsRequest;
+    private String verifyCode;
+    CaptchaCountDownTimer captchaTimer;
 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_new_password;
+        return R.layout.activity_update_password;
     }
 
     @Override
     protected void initVariable() {
-        newPasswordRequest = new NewPasswordRequest();
+        smsRequest = new SmsRequest();
+        updatePasswordRequest = new UpdatePasswordRequest();
+
+        initCountDownTimer();
     }
 
     @Override
     protected void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Explode explode = new Explode();
-            explode.setDuration(300);
-            getWindow().setEnterTransition(explode);
 
-            Slide slide = new Slide();
-            slide.setDuration(300);
-            getWindow().setExitTransition(slide);
-        }
     }
 
     @Override
@@ -65,49 +71,153 @@ public class UpdatePasswordActivity extends NoBarActivity {
 
     }
 
-
     /**
-     * 点击事件
+     * 获取验证码按钮点击事件
      */
-    @OnClick(R.id.btn_over)
-    public void onBtnOverClicked() {
+    @OnClick(R.id.btn_get_verify_code)
+    public void onBtnGetVerifyCodeClicked() {
 
-        newPasswordRequest.setPhone(getIntent().getStringExtra("phoneNumber"));
-        newPasswordRequest.setPassword(editPassword.getText().toString().trim());
+        smsRequest.setPhone(editPhone.getText().toString().trim());
 
-        if (isDataTrue()) {
-            newPassword();
+        captchaTimer.timerStart(true);
+
+        if (isPhoneTrue()) {
+            getVerifyCode();
         }
     }
 
-    @OnClick(R.id.btn_return)
-    public void onBtnReturnClicked() {
-        Intent intent = new Intent(UpdatePasswordActivity.this, ForgetPasswordActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
     /**
-     * 注册按钮相关方法
+     * 短信验证码
      */
-    public void newPassword() {
-
-        //弹出progressDialog
-        progressDialog.setMessage("请稍候");
-        progressDialog.show();
+    public void getVerifyCode() {
 
         //网络请求
 
-        RestClient.getService().newPassword(newPasswordRequest).enqueue(new DataCallback<APIResponse>() {
+        RestClient.getService().captch(smsRequest).enqueue(new DataCallback<APIResponse>() {
 
             //请求成功时回调
             @Override
             public void onDataResponse(Call<APIResponse> call, Response<APIResponse> response) {
 
-                ToastUtil.showToast("修改成功");
+                verifyCode = response.body().getData().toString().trim();
+                ToastUtil.showToast(getString(R.string.toast_send_successful));
+
+            }
+
+            //请求失败时回调
+            @Override
+            public void onDataFailure(Call<APIResponse> call, Throwable t) {
+
+            }
+
+            //无论成功或者失败时都回调，用于dismissDialog或隐藏其他控件
+            @Override
+            public void dismissDialog() {
+                if (progressDialog.isShowing()) {
+                    disMissProgressDialog();
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 倒计时相关方法
+     */
+
+    public void initCountDownTimer() {
+
+        if (!CaptchaCountDownTimer.FLAG_FIRST_IN &&
+                CaptchaCountDownTimer.curMillis + Config.COUNT_DOWN_TIME_TOTAL > System.currentTimeMillis()) {
+
+            setCountDownTimer(CaptchaCountDownTimer.curMillis + Config.COUNT_DOWN_TIME_TOTAL - System.currentTimeMillis());
+            captchaTimer.timerStart(false);
+
+        } else {
+            setCountDownTimer(Config.COUNT_DOWN_TIME_TOTAL);
+        }
+    }
+
+
+    public void setCountDownTimer(final long countDownTime) {
+
+        captchaTimer = new CaptchaCountDownTimer(countDownTime, Config.COUNT_DOWN_TIME_PER) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                btnGetVerifyCode.setEnabled(false);
+                btnGetVerifyCode.setText((millisUntilFinished / Config.COUNT_DOWN_TIME_PER) + " s");
+            }
+
+            @Override
+            public void onFinish() {
+
+                btnGetVerifyCode.setEnabled(true);
+                btnGetVerifyCode.setText(getString(R.string.btn_get_captcha));
+
+                if (countDownTime != Config.COUNT_DOWN_TIME_TOTAL) {
+                    setCountDownTimer(Config.COUNT_DOWN_TIME_TOTAL);
+                }
+            }
+        };
+    }
+
+
+    /**
+     * 验证手机号正则
+     *
+     * @return
+     */
+    private boolean isPhoneTrue() {
+        boolean flag = true;
+        if (editPhone.getText().toString().trim().equals(Config.EMPTY_FIELD)) {
+            showError(editPhone, getString(R.string.error_phone_number_empty_illegal));
+            flag = false;
+        } else if (RegexUtil.checkMobile(editPhone.getText().toString().trim())) {
+            showError(editPhone, getString(R.string.error_phone_number_illegal));
+            flag = false;
+        }
+        return flag;
+    }
+
+
+    /**
+     * 完成改密码点击事件
+     */
+    @OnClick(R.id.btn_over)
+    public void onBtnOverClicked() {
+
+        updatePasswordRequest.setPhone(getIntent().getStringExtra("phoneNumber"));
+        updatePasswordRequest.setPassword(editPassword.getText().toString().trim());
+
+        if (isDataTrue()) {
+            updatePassword();
+        }
+    }
+
+
+    /**
+     * 改密码按钮相关方法
+     */
+    public void updatePassword() {
+
+        //弹出progressDialog
+        progressDialog.setMessage(getString(R.string.dialog_wait_moment));
+        progressDialog.show();
+
+        //网络请求
+
+        RestClient.getService().updatePassword(updatePasswordRequest).enqueue(new DataCallback<APIResponse>() {
+
+            //请求成功时回调
+            @Override
+            public void onDataResponse(Call<APIResponse> call, Response<APIResponse> response) {
+
+                ToastUtil.showToast(getString(R.string.toast_update_successful));
 
                 Intent intent = new Intent(UpdatePasswordActivity.this, MainActivity.class);
                 startActivity(intent);
+                captchaTimer.cancel();
                 finish();
 
             }
@@ -126,6 +236,17 @@ public class UpdatePasswordActivity extends NoBarActivity {
                 }
             }
         });
+    }
+
+    /**
+     * 返回按钮点击事件
+     */
+    @OnClick(R.id.btn_return)
+    public void onBtnReturnClicked() {
+        Intent intent = new Intent(UpdatePasswordActivity.this, LoginActivity.class);
+        startActivity(intent);
+        captchaTimer.cancel();
+        finish();
     }
 
 
@@ -149,18 +270,23 @@ public class UpdatePasswordActivity extends NoBarActivity {
      */
     private boolean isDataTrue() {
         boolean flag = true;
-        if (editPassword.getText().toString().trim().length() <= Config.PASSWORD_MIN_LIMIT) {
-            showError(editPassword, "密码不得少于6位");
+        if (editCaptcha.getText().toString().trim().equals(Config.EMPTY_FIELD)) {
+            showError(editCaptcha, getString(R.string.error_captcha_empty_illegal));
+            flag = false;
+        } else if (!editCaptcha.getText().toString().trim().equals(verifyCode)) {
+            showError(editCaptcha, getString(R.string.error_captcha_number_illegal));
+            flag = false;
+        } else if (editPassword.getText().toString().trim().length() < Config.PASSWORD_MIN_LIMIT) {
+            showError(editPassword, getString(R.string.error_password_min_limit));
             flag = false;
         } else if (editPassword.getText().toString().trim().length() > Config.PASSWORD_MAX_LIMIT) {
-            showError(editPassword, "密码不得多于16位");
+            showError(editPassword, getString(R.string.error_password_max_limit));
             flag = false;
-        }  else if (!editRepeatPassword.getText().toString().trim().equals(editPassword.getText().toString().trim())) {
-            showError(editRepeatPassword, "两次输入密码不一致");
+        } else if (!editRepeatPassword.getText().toString().trim().equals(editPassword.getText().toString().trim())) {
+            showError(editRepeatPassword, getString(R.string.error_passwords_inconsistent));
             flag = false;
         }
         return flag;
     }
-
 
 }

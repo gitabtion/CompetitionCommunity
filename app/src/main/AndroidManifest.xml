@@ -12,38 +12,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        
         <activity android:name=".account.activities.LoginActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".account.activities.RegisterActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".account.activities.RegisterActivity"/>
 
-        <activity android:name=".account.activities.ForgetPasswordActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name=".account.activities.UpdatePasswordActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".account.activities.UpdatePasswordActivity"/>
 
         <activity android:name=".main.MainActivity" />
+
+        <activity android:name=".home.activities.CompetitionActivity"/>
+
+        <activity android:name=".mine.activities.UpdateInformationActivity"/>
+
+        <activity android:name=".mine.activities.SettingActivity"/>
+
 
     </application>
 

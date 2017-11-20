@@ -1,18 +1,18 @@
-package cn.abtion.neuqercc.team;
+package cn.abtion.neuqercc.team.fragments;
 
 import cn.abtion.neuqercc.R;
 import cn.abtion.neuqercc.base.fragments.BaseFragment;
 
 /**
- * @author abtion.
- * @since 17/9/24 上午2:15.
- * email caiheng@hrsoft.net.
+ * @author lszr
+ * @since 2017/11/14 下午8:47
+ * email wsyglszr@gmail.com
  */
 
-public class TeamFragment extends BaseFragment {
+public class RecommendTeamFragment extends BaseFragment{
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_team;
+        return R.layout.fragment_recommend_team;
     }
 
     @Override

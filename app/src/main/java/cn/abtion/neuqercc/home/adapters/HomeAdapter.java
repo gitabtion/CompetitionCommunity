@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 import butterknife.BindView;
 import cn.abtion.neuqercc.R;
 import cn.abtion.neuqercc.base.adapters.BaseRecyclerViewAdapter;
-import cn.abtion.neuqercc.home.models.ContestModel;
+import cn.abtion.neuqercc.home.models.ContestListModel;
 
 /**
  * @author abtion.
@@ -19,12 +20,11 @@ import cn.abtion.neuqercc.home.models.ContestModel;
  * email caiheng@hrsoft.net.
  */
 
-public class HomeAdapter extends BaseRecyclerViewAdapter<ContestModel> {
+public class HomeAdapter extends BaseRecyclerViewAdapter<ContestListModel> {
 
 
-
-    public HomeAdapter(Context context, List<ContestModel> contestModel) {
-        super(context, contestModel);
+    public HomeAdapter(Context context, List<ContestListModel> contestListModel) {
+        super(context, contestListModel);
     }
 
     @Override
@@ -34,27 +34,29 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<ContestModel> {
 
     }
 
-    static class ItemHolder extends ViewHolder<ContestModel> {
+    static class ItemHolder extends ViewHolder<ContestListModel> {
 
-        @BindView(R.id.txt_contest_name)
-        TextView txtContestName;
-        @BindView(R.id.txt_size)
-        TextView txtSize;
-        @BindView(R.id.txt_weight)
-        TextView txtWeight;
+        @BindView(R.id.txt_contest_list_title)
+        TextView txtContestListTitle;
+        @BindView(R.id.txt_contest_list_summary)
+        TextView txtContestListSummary;
+        @BindView(R.id.txt_contest_list_time_upper)
+        TextView txtContestListTimeUpper;
+        @BindView(R.id.txt_contest_list_time_lower)
+        TextView txtContestListTimeLower;
 
 
-        public ItemHolder(View itemView) {
+        ItemHolder(View itemView) {
             super(itemView);
         }
 
         @Override
-        protected void onBind(ContestModel contestModel) {
-            txtContestName.setText(contestModel.getTitle() == null ? "N/A" : contestModel.getTitle());
-            txtSize.setText(contestModel.getCotestTime() == null ? "N/A" : contestModel.getCotestTime());
-            txtWeight.setText(contestModel.getSignTime() == null ? "N/A" : contestModel.getSignTime());
-
+        protected void onBind(ContestListModel contestListModel) {
+            txtContestListTitle.setText(contestListModel.getTitle() == null ? "N/A" : contestListModel.getTitle());
+            txtContestListSummary.setText(contestListModel.getSummary() == null ? "N/A" : contestListModel.getSummary());
+            txtContestListTimeUpper.setText(contestListModel.getContestTime() == null ? "N/A" : contestListModel.getContestTime());
+            txtContestListTimeLower.setText(contestListModel.getSignTime() == null ? "N/A" : contestListModel.getSignTime());
         }
     }
-
 }
+

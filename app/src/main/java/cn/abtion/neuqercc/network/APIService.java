@@ -1,7 +1,7 @@
 package cn.abtion.neuqercc.network;
 
 import cn.abtion.neuqercc.account.models.LoginRequest;
-import cn.abtion.neuqercc.account.models.NewPasswordRequest;
+import cn.abtion.neuqercc.account.models.UpdatePasswordRequest;
 import cn.abtion.neuqercc.account.models.RegisterRequest;
 import cn.abtion.neuqercc.account.models.SmsRequest;
 import retrofit2.Call;
@@ -39,7 +39,7 @@ public interface APIService {
      * 重新设置密码
      */
     @POST("saiyou/public/index.php/forgot")
-    Call<APIResponse> newPassword(@Body NewPasswordRequest newPasswordRequest);
+    Call<APIResponse> updatePassword(@Body UpdatePasswordRequest updatePasswordRequest);
 
 
 }

@@ -10,10 +10,12 @@
         android:elevation="4dp"
         android:id="@+id/toolbar"
         app:navigationIcon="@drawable/ic_back"
+        app:contentInsetStart="0dp"
         style="@style/toolbar"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        >
     </android.support.v7.widget.Toolbar>
 
     <View

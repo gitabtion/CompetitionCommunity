@@ -3,25 +3,27 @@ package cn.abtion.neuqercc.account.models;
 import cn.abtion.neuqercc.base.models.BaseModel;
 
 /**
- * Created by 41061 on 2017/10/21.
+ * @author fhyPayaso
+ * @since 2017/11/7 16:40
+ * email fhyPayaso@qq.com
  */
 
 public class SmsRequest extends BaseModel{
 
     private String phone;
 
-    private String captcah;
+    private String captcha;
 
     public SmsRequest(){
 
     }
 
-    public String getCaptcah() {
-        return captcah;
+    public String getCaptcha() {
+        return captcha;
     }
 
-    public void setCaptcah(String captcah) {
-        this.captcah = captcah;
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 
     public String getPhone() {

@@ -169,6 +169,8 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
         }else if (hasHeader&&(position<dataList.size()+1)&&position>0){
             Data data = dataList.get(position-1);
             ((ViewHolder<Data>) holder).bind(data);
+
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -268,6 +270,11 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
     public interface OnItemClicked<Data> {
         void onItemClicked(Data data, ViewHolder holder);
     }
+
+
+//    public interface OnItemClicked {
+//        void onItemClicked(View view, int position);
+//    }
 
 }
 

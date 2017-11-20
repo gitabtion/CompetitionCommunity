@@ -1,13 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
 
     <TextView
+        android:id="@+id/txt_team_title"
+        style="@style/title_txt"
+        android:text="@string/organize_team" />
+
+    <RelativeLayout
+        android:id="@+id/rlayout_search_team"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/txt_team_title"
+        android:background="@color/search_background">
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search_team"
+            android:layout_width="257dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/bg_search_full" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginLeft="33dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/search_team"
+            android:src="@drawable/ic_search_button" />
+    </RelativeLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarlayout_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlayout_search_team">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/table_header_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp">
+
+        </android.support.design.widget.TabLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/view_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="team"
-        android:textSize="24sp"/>
-</LinearLayout>
+        android:layout_below="@id/appbarlayout_table"
+        android:background="@color/bg_gray">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager_team"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </android.support.v4.view.ViewPager>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

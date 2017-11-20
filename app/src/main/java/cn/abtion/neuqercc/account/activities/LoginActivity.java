@@ -1,7 +1,9 @@
 package cn.abtion.neuqercc.account.activities;
 
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.design.widget.TextInputEditText;
 import android.transition.Explode;
 import android.transition.Slide;
@@ -38,8 +40,6 @@ public class LoginActivity extends NoBarActivity {
     private LoginRequest loginRequest;
 
 
-
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -52,15 +52,7 @@ public class LoginActivity extends NoBarActivity {
 
     @Override
     protected void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Explode explode = new Explode();
-            explode.setDuration(300);
-            getWindow().setEnterTransition(explode);
 
-            Slide slide = new Slide();
-            slide.setDuration(300);
-            getWindow().setExitTransition(slide);
-        }
     }
 
     @Override
@@ -77,8 +69,12 @@ public class LoginActivity extends NoBarActivity {
         loginRequest.setPassword(editPassword.getText().toString().trim());
 
         if (isDataTrue()) {
-            login();
+            processLogin();
         }
+
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**
@@ -96,7 +92,7 @@ public class LoginActivity extends NoBarActivity {
      */
     @OnClick(R.id.txt_forget_password)
     public void onTxtForgetPasswordClicked() {
-        Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+        Intent intent = new Intent(LoginActivity.this, UpdatePasswordActivity.class);
         startActivity(intent);
         finish();
 
@@ -106,9 +102,9 @@ public class LoginActivity extends NoBarActivity {
     /**
      * 进行登录的相关操作的方法
      */
-    private void login() {
+    private void processLogin() {
         //弹出progressDialog
-        progressDialog.setMessage("请稍候");
+        progressDialog.setMessage(getString(R.string.dialog_wait_moment));
         progressDialog.show();
 
         //网络请求
@@ -117,7 +113,7 @@ public class LoginActivity extends NoBarActivity {
             //请求成功时回调
             @Override
             public void onDataResponse(Call<APIResponse> call, Response<APIResponse> response) {
-                ToastUtil.showToast("登录成功");
+                ToastUtil.showToast(getString(R.string.toast_login_successful));
 
                 //跳转至MainActivity
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -162,21 +158,20 @@ public class LoginActivity extends NoBarActivity {
      */
     private boolean isDataTrue() {
         boolean flag = true;
-        if (editIdentifier.getText().toString().trim().length() == 0) {
-            showError(editIdentifier, "账号不可为空");
+        if (editIdentifier.getText().toString().trim().equals(Config.EMPTY_FIELD)) {
+            showError(editIdentifier, getString(R.string.error_account_empty_illegal));
             flag = false;
         } else if (RegexUtil.checkMobile(editIdentifier.getText().toString().trim())) {
-            showError(editIdentifier, "手机号不合法");
+            showError(editIdentifier, getString(R.string.error_phone_number_illegal));
             flag = false;
         } else if (editPassword.getText().toString().trim().length() < Config.PASSWORD_MIN_LIMIT) {
-            showError(editPassword, "密码不得少于6位");
+            showError(editPassword,getString(R.string.error_password_min_limit) );
             flag = false;
         } else if (editPassword.getText().toString().trim().length() > Config.PASSWORD_MAX_LIMIT) {
-            showError(editPassword, "密码不得多于16位");
+            showError(editPassword, getString(R.string.error_password_max_limit));
             flag = false;
         }
         return flag;
     }
-
 
 }

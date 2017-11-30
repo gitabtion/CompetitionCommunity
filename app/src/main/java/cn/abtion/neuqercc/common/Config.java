@@ -19,9 +19,17 @@ public class Config {
     public static final String EMAIL_REGEX = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
 
     /**
+     * 空字段
+     */
+    public static final String EMPTY_FIELD = "";
+
+    /**
      * APP Server 网络请求BaseUrl
      */
-    public static final String APP_SERVER_BASE_URL = "http://oj.marklux.cn/";
+    /**
+     * public static final String APP_SERVER_BASE_URL = "http://oj.marklux.cn/";
+     */
+    public static final String APP_SERVER_BASE_URL = "http://www.thmaoqiu.cn/";
 
     /**
      * APP Server 网络请求连接超时时间，单位：s
@@ -32,4 +40,81 @@ public class Config {
      * 启动页面到首页启动延时，单位：毫秒
      */
     public static final int SPLASH_GO_MAIN_DELAY = 1500;
+
+    /**
+     * MainActivity的page标记
+     */
+    public static final int FLAG_HOME = 0;
+    public static final int FLAG_TEAM = 1;
+    public static final int FLAG_MESSAGE = 2;
+    public static final int FLAG_MINE = 3;
+    public static final int PAGE_LIMIT = 4;
+
+    /**
+     * 赛事页面page标记
+     */
+
+    public static final int FLAG_DETAILS = 0;
+    public static final int FLAG_RAIDERS = 1;
+    public static final int PAGE_COMPETITION_LIMIT = 2;
+
+    public static final String TAB_TITLE_DETAILS="赛事详情";
+    public static final String TAB_TITLE_RAIDERS="大神攻略";
+
+
+    /**
+     * 密码长度限制
+     */
+    public static final int PASSWORD_MIN_LIMIT =6;
+    public static final int PASSWORD_MAX_LIMIT =16;
+
+
+    public static final String KEY_MAIN_FLAG = "keyMainFlag";
+
+
+    public static final int FLING_MIN_DISTANCE=100;
+    public static final int FLING_MIN_VELOCITY=10;
+
+    /**
+     * 倒计时及每次回调时间
+     */
+
+    public static final long COUNT_DOWN_TIME_TOTAL=60000;
+    public static final long COUNT_DOWN_TIME_PER=1000;
+
+    /**
+     * team主界面ViewPagerAdapter设置字符串
+     */
+    public static final String ALL_TEAM ="全部队伍" ;
+    public static final String RECOMMAND_TEAM ="推荐队伍" ;
+
+    /**
+     * team主界面ViewPager跳转switch不同case
+     */
+    public static final int TEAM_VIEW_PAGER_ITEME_ZERO=0;
+    public static final int TEAM_VIEW_PAGER_ITEME_ONE=1;
+
+    /**
+     * tab指示器长度
+     */
+    public static final int TAB_INDICATOR_LENGTH=50;
+    /**
+     * viewflipper的downX变量初值
+     */
+    public static final int VIEW_FLIPPER_INITAIL_VALUE=0;
+    /**
+     * tab指示器长度
+     */
+    public static final int TAB_INDICATOR_WIDTH=50;
+
+
+
+
+    /**
+     * 轮播图
+     */
+
+    public static final int FLIPPER_TIME_INTERVAL=5000;
+    public static final int FLIPPER_ACTION_SPEED=200;
+
 }

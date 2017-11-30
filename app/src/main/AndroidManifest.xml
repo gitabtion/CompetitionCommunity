@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="cn.abtion.neuqercc">
-    <uses-permission android:name="android.permission.INTERNET"/>
+    package="cn.abtion.neuqercc">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".NEUQerCCApplication"
@@ -11,14 +12,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        
+        <activity android:name=".account.activities.LoginActivity">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".account.activities.LoginActivity"/>
+
+        <activity android:name=".account.activities.RegisterActivity"/>
+
+        <activity android:name=".account.activities.UpdatePasswordActivity"/>
+
+        <activity android:name=".main.MainActivity" />
+
+        <activity android:name=".home.activities.CompetitionActivity"/>
+
+        <activity android:name=".mine.activities.UpdateInformationActivity"/>
+
+        <activity android:name=".mine.activities.SettingActivity"/>
+
+
     </application>
 
 </manifest>

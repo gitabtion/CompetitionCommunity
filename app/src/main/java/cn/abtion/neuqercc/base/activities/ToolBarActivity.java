@@ -9,7 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import cn.abtion.neuqercc.R;
 
 /**
@@ -23,6 +25,9 @@ public abstract class ToolBarActivity extends BaseActivity {
 
     /** activity 页面Toolbar */
     private Toolbar toolbar;
+    @BindView(R.id.txt_toolbar_title)
+    protected TextView toolBarTitle;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,8 +93,10 @@ public abstract class ToolBarActivity extends BaseActivity {
      */
     protected void setActivityTitle(CharSequence charSequence) {
         if (toolbar != null) {
-            toolbar.setTitle(charSequence);
-            toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+            //toolbar.setTitle(charSequence);
+            //toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+            toolBarTitle.setText(charSequence);
+            toolBarTitle.setTextColor(getResources().getColor(R.color.white));
         }
     }
 

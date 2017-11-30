@@ -12,6 +12,15 @@ import cn.abtion.neuqercc.base.models.BaseModel;
 public class APIResponse<T> extends BaseModel {
     private int code = -2;
     private T data;
+    private String msg="";
+
+    public String getMsg(){
+        return msg;
+    }
+
+    public void setMsg(String msg){
+        this.msg=msg;
+    }
 
     public int getCode() {
         return code;
@@ -28,4 +37,8 @@ public class APIResponse<T> extends BaseModel {
     public void setData(T data) {
         this.data = data;
     }
+
+
+
+
 }

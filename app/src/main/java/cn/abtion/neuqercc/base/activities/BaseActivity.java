@@ -1,6 +1,8 @@
 package cn.abtion.neuqercc.base.activities;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -10,6 +12,8 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Explode;
+import android.transition.Slide;
 
 import butterknife.ButterKnife;
 import cn.abtion.neuqercc.base.fragments.BaseFragment;
@@ -33,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // 禁止APP横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
     }
 
     /**
@@ -168,5 +173,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
+
 }
 

@@ -1,7 +1,20 @@
 package cn.abtion.neuqercc.mine;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.abtion.neuqercc.R;
 import cn.abtion.neuqercc.base.fragments.BaseFragment;
+import cn.abtion.neuqercc.mine.activities.UpdateInformationActivity;
+import cn.abtion.neuqercc.utils.ToastUtil;
 
 /**
  * @author abtion.
@@ -10,6 +23,11 @@ import cn.abtion.neuqercc.base.fragments.BaseFragment;
  */
 
 public class MineFragment extends BaseFragment {
+
+
+    @BindView(R.id.mine_edit)
+    TextView txtEdit;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
@@ -27,6 +45,15 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
+
+    }
+
+
+    @OnClick(R.id.mine_edit)
+    public void onTxtEditClicked() {
+
+        Intent intent =new Intent(getContext(),UpdateInformationActivity.class);
+        startActivity(intent);
 
     }
 }

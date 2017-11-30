@@ -5,9 +5,8 @@
               android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="message"
-        android:textSize="24sp"/>
+        android:id="@+id/txt_team_title"
+        style="@style/title_txt"
+        android:text="@string/message"/>
+
 </LinearLayout>

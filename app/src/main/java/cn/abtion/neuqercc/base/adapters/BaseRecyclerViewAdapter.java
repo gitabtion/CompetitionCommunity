@@ -122,36 +122,27 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
      */
     @Override
     public int getItemViewType(int position) {
-//        if (!hasRefreshFooter) {
-//            return super.getItemViewType(position);
-//        } else if (position < dataList.size()) {
-//            return DATA_ITEM;
-//        } else {
-//            return FOOTER_ITEM;
-//        }
 
-        if ((!hasHeader) && (!hasRefreshFooter)) {
+        if (hasHeader&&hasRefreshFooter){
+            if (position==1){
+                return HEADER_ITEM;
+            }else {
+                return position<dataList.size()+1?DATA_ITEM:FOOTER_ITEM;
+            }
+        }else if (hasHeader){
+            if (position==1){
+                return HEADER_ITEM;
+            }else {
+                return DATA_ITEM;
+            }
+        }else if (hasRefreshFooter){
+            if (position<dataList.size()){
+                return DATA_ITEM;
+            }else {
+                return FOOTER_ITEM;
+            }
+        }else {
             return super.getItemViewType(position);
-        } else if (hasRefreshFooter && hasHeader) {
-            if (position == 0) {
-                return HEADER_ITEM;
-            } else if (position < (dataList.size() + 1)) {
-                return DATA_ITEM;
-            } else {
-                return FOOTER_ITEM;
-            }
-        } else if (hasHeader) {
-            if (position == 0) {
-                return HEADER_ITEM;
-            } else {
-                return DATA_ITEM;
-            }
-        } else {
-            if (position < dataList.size()) {
-                return DATA_ITEM;
-            } else {
-                return FOOTER_ITEM;
-            }
         }
     }
 
@@ -178,6 +169,8 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
         }else if (hasHeader&&(position<dataList.size()+1)&&position>0){
             Data data = dataList.get(position-1);
             ((ViewHolder<Data>) holder).bind(data);
+
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -196,11 +189,6 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
      */
     @Override
     public int getItemCount() {
-//        if (!hasRefreshFooter) {
-//            return dataList == null ? 0 : dataList.size();
-//        } else {
-//            return dataList == null ? 1 : dataList.size() + 1;
-//        }
         if ((!hasHeader) && (!hasRefreshFooter)) {
             return dataList == null ? 0 : dataList.size();
         } else if (hasHeader && hasRefreshFooter) {
@@ -230,7 +218,10 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
             onBind(data);
         }
 
-        //绑定数据
+        /**
+         * 绑定数据
+         * @param data 数据源
+         */
         protected abstract void onBind(Data data);
     }
 
@@ -248,10 +239,10 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
     /**
      * Header holder
      */
-    public abstract static class HeaderHolder<Data> extends RecyclerView.ViewHolder {
+    public abstract static class BaseHeaderHolder<Data> extends RecyclerView.ViewHolder {
         private Data mData;
 
-        public HeaderHolder(View itemView) {
+        public BaseHeaderHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -280,4 +271,10 @@ public abstract class BaseRecyclerViewAdapter<Data> extends RecyclerView.Adapter
         void onItemClicked(Data data, ViewHolder holder);
     }
 
+
+//    public interface OnItemClicked {
+//        void onItemClicked(View view, int position);
+//    }
+
 }
+

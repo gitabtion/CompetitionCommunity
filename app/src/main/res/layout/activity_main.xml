@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.abtion.neuqercc.MainActivity">
+    tools:context="cn.abtion.neuqercc.main.MainActivity">
 
     <LinearLayout
         android:id="@+id/ly_tab_menu"
@@ -23,13 +23,13 @@
                 android:id="@+id/img_tab_menu_home"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/img_home_selector" />
 
             <TextView
                 android:id="@+id/txt_tab_menu_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="首页"
+                android:text="@string/tab_bottom_home"
                 android:textColor="#9b9b9b" />
 
         </LinearLayout>
@@ -42,13 +42,13 @@
                 android:id="@+id/img_tab_menu_order"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/img_team_selector" />
 
             <TextView
                 android:id="@+id/txt_tab_menu_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="队伍" />
+                android:text="@string/tab_bottom_team" />
 
         </LinearLayout>
 
@@ -60,13 +60,13 @@
                 android:id="@+id/img_tab_menu_message"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/img_message_selector" />
 
             <TextView
                 android:id="@+id/txt_tab_menu_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="消息" />
+                android:text="@string/tab_bottom_message" />
 
         </LinearLayout>
 
@@ -79,13 +79,15 @@
                 android:id="@+id/img_tab_menu_mine"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/img_mine_selector" />
+
+
 
             <TextView
                 android:id="@+id/txt_tab_menu_mine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我的" />
+                android:text="@string/tab_bottom_mine" />
 
         </LinearLayout>
 
@@ -100,8 +102,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="#f2f2f2"
+        android:background="@color/bg_frame_gray"
         android:elevation="0dp"
-        android:fitsSystemWindows="false" />
+        android:fitsSystemWindows="false">
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_main_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+    </FrameLayout>
 
 </RelativeLayout>

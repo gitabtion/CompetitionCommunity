@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray">
+
+
+    <RelativeLayout
+        android:id="@+id/llayout_team_name"
+        android:layout_marginTop="10dp"
+        android:layout_width="328dp"
+        android:layout_height="46.5dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_input_box">
+
+        <ImageView
+            android:id="@+id/img_before_team_name"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_before_team_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20.5dp"
+            android:layout_toRightOf="@id/img_before_team_name"
+            android:text="@string/test_team_name"
+            android:textColor="@color/text_black"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/llayout_contest_name"
+        android:layout_width="328dp"
+        android:layout_height="180dp"
+        android:layout_below="@id/llayout_team_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_input_box">
+
+        <TextView
+            android:id="@+id/txt_want_join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="14dp"
+            android:text="@string/text_want_join"
+            android:textColor="@color/text_black"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="254.5dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/bg_black" />
+
+        <TextView
+            android:id="@+id/txt_contest_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/txt_want_join"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="12.5dp"
+            android:text="@string/text_contest_name"
+            android:textColor="@color/text_black"
+            android:textSize="16dp" />
+
+        <View
+            android:id="@+id/view_below_contest_name"
+            android:layout_width="225.5dp"
+            android:layout_height="1dp"
+            android:layout_below="@id/txt_contest_name"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/bg_black" />
+
+        <TextView
+            android:id="@+id/txt_team_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_contest_name"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="16dp"
+            android:text="@string/text_team_member"
+            android:textColor="@color/text_black"
+            android:textSize="16dp" />
+        <View
+
+            android:layout_width="254.5dp"
+            android:layout_height="1dp"
+            android:layout_below="@id/txt_team_member"
+            android:layout_alignLeft="@id/txt_team_member"
+            android:background="@color/bg_black" />
+
+        <TextView
+            android:id="@+id/txt_captain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_team_member"
+            android:layout_marginTop="10dp"
+            android:text="@string/text_captain"
+            android:layout_alignLeft="@id/view_below_contest_name"
+            android:textColor="@color/text_black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/txt_member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_member_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_alignTop="@id/txt_captain"
+            android:textColor="@color/text_black"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="225.5dp"
+            android:layout_height="1dp"
+            android:layout_below="@id/txt_member_name"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/bg_black" />
+
+
+        <TextView
+            android:id="@+id/txt_adept"
+            android:layout_width="wrap_content"
+            android:layout_alignLeft="@id/txt_captain"
+            android:layout_below="@id/txt_captain"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_adept"
+            android:textColor="@color/text_black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/txt_math_power_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/txt_adept"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:text="@string/text_math_power_up"
+            android:textColor="@color/text_black"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="225.5dp"
+            android:layout_height="1dp"
+            android:layout_below="@id/txt_adept"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/bg_black" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_team_introduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/llayout_team_name"
+        android:layout_below="@id/llayout_contest_name"
+        android:layout_marginTop="16dp"
+        android:text="@string/text_team_introduce"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/llayout_team_introduce"
+        android:layout_width="328dp"
+        android:layout_height="134dp"
+        android:layout_below="@id/txt_team_introduce"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_input_box"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_join_team"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_below="@id/llayout_team_introduce"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:background="@drawable/img_enter_team"/>
+
+
+</RelativeLayout>
